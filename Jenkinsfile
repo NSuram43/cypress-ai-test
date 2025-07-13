@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'cypress-cucumber-typescript'
+            image 'nithinsuram/cypress-cucumber-typescript'
             args '--entrypoint=""'
         }
     }
@@ -19,7 +19,9 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: 'cypress/screenshots/**/*, cypress/videos/**/*', allowEmptyArchive: true
+            node {
+                archiveArtifacts artifacts: 'cypress/screenshots/**/*, cypress/videos/**/*', allowEmptyArchive: true
+            }
         }
     }
 }
