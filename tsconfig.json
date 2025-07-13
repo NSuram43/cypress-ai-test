@@ -1,0 +1,27 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "types": [
+      "cypress",
+      "@badeball/cypress-cucumber-preprocessor",
+      "@types/node"
+    ]
+  },
+  "include": [
+    "cypress/**/*",
+    "cypress.config.ts",
+    "cypress-cucumber-preprocessor.config.js"
+  ]
+}

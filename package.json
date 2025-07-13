@@ -1,0 +1,23 @@
+{
+  "name": "cypress-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --spec 'cypress/e2e/**/*.feature'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "latest",
+    "@bahmutov/cypress-esbuild-preprocessor": "latest",
+    "@cypress/webpack-preprocessor": "^6.0.4",
+    "@types/node": "latest",
+    "cypress": "^14.5.1",
+    "esbuild": "^0.25.6",
+    "ts-node": "latest",
+    "typescript": "latest"
+  }
+}
