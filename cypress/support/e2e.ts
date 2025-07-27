@@ -14,4 +14,18 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
+
+// The application under test (automationexercise.com) has disruptive ads
+// that can cause tests to fail. This intercepts ad requests and blocks them,
+// leading to a much more stable test run.
+beforeEach(() => {
+  cy.intercept(
+    { hostname: 'pagead2.googlesyndication.com' },
+    { statusCode: 204 }
+  );
+  cy.intercept(
+    { hostname: 'googleads.g.doubleclick.net' },
+    { statusCode: 204 }
+  );
+});

@@ -11,7 +11,22 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('login', (email, password) => {
+  // This validation prevents `cy.type(undefined)` errors if env variables are missing.
+  if (typeof email !== 'string' || !email) {
+    throw new Error(
+      "cy.login() requires a non-empty email string. Check that `Cypress.env('email')` is defined in your cypress.env.json and that there are no conflicting step definition files."
+    );
+  }
+  if (typeof password !== 'string' || !password) {
+    throw new Error(
+      "cy.login() requires a non-empty password string. Check that `Cypress.env('password')` is defined in your cypress.env.json and that there are no conflicting step definition files."
+    );
+  }
+  cy.get('[data-qa="login-email"]').type(email);
+  cy.get('[data-qa="login-password"]').type(password);
+  cy.get('[data-qa="login-button"]').click();
+});
 //
 //
 // -- This is a child command --
