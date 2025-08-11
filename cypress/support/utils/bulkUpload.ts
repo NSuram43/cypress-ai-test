@@ -70,11 +70,8 @@ export function uploadCodeDecodeExcel(
       return workbook.xlsx.writeBuffer();
     })
     .then((updatedBuffer) => {
-      // Persist to temp for later inspection
-      const timestamp = Date.now();
-      const tempDir = 'cypress/temp';
-      const tempPath = `${tempDir}/${timestamp}-${fileName}`;
-      // Ensure binary write so content is not corrupted
+      // Persist to a single temp file for later inspection
+      const tempPath = 'cypress/temp/temp.xlsx';
       cy.writeFile(tempPath, updatedBuffer, { encoding: 'binary' });
       cy.then(() => {
         Cypress.env('uploadedExcelPath', tempPath);
