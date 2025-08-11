@@ -1,4 +1,4 @@
-import ExcelJS from 'exceljs';
+import ExcelJS from 'exceljs/dist/exceljs.min.js';
 
 export enum UploadType {
   Add = 'Add',
@@ -31,9 +31,10 @@ export function uploadCodeDecodeExcel(
   cy.fixture(fileName, 'base64')
     .then((base64Content) => Cypress.Blob.base64StringToBlob(base64Content, xlsxMime))
     .then((blob) => blob.arrayBuffer())
-    .then((arrayBuffer) => {
+    .then((arrayBuffer) => new Uint8Array(arrayBuffer))
+    .then((uint8) => {
       const workbook = new ExcelJS.Workbook();
-      return workbook.xlsx.load(arrayBuffer);
+      return workbook.xlsx.load(uint8);
     })
     .then((workbook) => {
       const worksheet = workbook.worksheets[0];
@@ -60,7 +61,6 @@ export function uploadCodeDecodeExcel(
       const decodeCol = ensureColumn('DECODE');
       const functionCol = ensureColumn('FUNCTION');
 
-      // Update first data row (row 2) as per prior implementation semantics
       const dataRow = worksheet.getRow(2);
       dataRow.getCell(codeCol).value = newCode;
       dataRow.getCell(decodeCol).value = newDecode;
@@ -102,7 +102,6 @@ export function uploadFile(fileName: string): void {
 }
 
 export function uploadNonExcelFile(fileName: string): void {
-  // Treat file as plain text; the app should reject it
   cy.fixture(fileName, 'base64')
     .then((base64Content) => Cypress.Blob.base64StringToBlob(base64Content, 'text/plain'))
     .then((blob) => {
