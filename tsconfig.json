@@ -1,27 +1,23 @@
 {
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true
-  },
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "node16",
-    "moduleResolution": "node16",
-    "strict": true,
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "commonjs",
     "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noEmit": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./",
     "types": [
       "cypress",
-      "@badeball/cypress-cucumber-preprocessor",
-      "@types/node"
-    ]
+      "node"
+    ],
+    "baseUrl": "."
   },
   "include": [
-    "cypress/**/*",
-    "cypress.config.ts",
-    "cypress-cucumber-preprocessor.config.js"
+    "cypress/**/*.ts",
+    "cypress/**/*.d.ts",
+    "cypress.config.ts"
   ]
 }

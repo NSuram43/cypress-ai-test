@@ -17,6 +17,7 @@
     "@types/node": "latest",
     "cypress": "^14.5.1",
     "esbuild": "^0.25.6",
+    "exceljs": "^4.4.0",
     "ts-node": "latest",
     "typescript": "latest"
   }
