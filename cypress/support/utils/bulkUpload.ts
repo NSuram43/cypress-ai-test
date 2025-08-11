@@ -70,6 +70,16 @@ export function uploadCodeDecodeExcel(
       return workbook.xlsx.writeBuffer();
     })
     .then((updatedBuffer) => {
+      // Persist to temp for later inspection
+      const timestamp = Date.now();
+      const tempDir = 'cypress/temp';
+      const tempPath = `${tempDir}/${timestamp}-${fileName}`;
+      // Ensure binary write so content is not corrupted
+      cy.writeFile(tempPath, updatedBuffer, { encoding: 'binary' });
+      cy.then(() => {
+        Cypress.env('uploadedExcelPath', tempPath);
+      });
+
       const updatedBlob = new Blob([updatedBuffer], { type: getMimeTypeForXlsx() });
       const testFile = new File([updatedBlob], fileName, { type: updatedBlob.type });
       const dataTransfer = new DataTransfer();
